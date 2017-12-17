@@ -20,6 +20,7 @@ import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 import org.nd4j.linalg.factory.Nd4j;
 import org.nd4j.linalg.indexing.INDArrayIndex;
 
+@SuppressWarnings("serial")
 public class PhysicsIterator implements DataSetIterator {
     private final WordVectors wordVectors;
     private final int batchSize;

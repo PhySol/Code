@@ -43,8 +43,8 @@ public class Word_Embeddings {
   	  	System.out.print("\n\nEnter the word: ");
   	  	String input = inputScan.nextLine();
         
-        Collection<String> relatedWord = vec.wordsNearest(input, 3);
-        System.out.println("3 Words Related to '"+input+"': " + relatedWord+"\n");
+        Collection<String> relatedWord = vec.wordsNearest(input, 5);
+        System.out.println("5 Words Related to '"+input+"': " + relatedWord+"\n");
         
         String currentWord = input;
 
@@ -52,7 +52,7 @@ public class Word_Embeddings {
         for(int x=0;x<relatedWord.size();x++) {
         	currentWord = Iterables.get(relatedWord,x);
             System.out.println(currentWord+"="+vec.getWordVectorMatrix(currentWord));
-            System.out.println(vec.getWordVectorMatrix(currentWord).columns());
+           // System.out.println(vec.getWordVectorMatrix(currentWord).columns());
         }//for(int x=0;x<relatedWord.size();x++) {
         //System.out.println(vec.lookupTable());        
         

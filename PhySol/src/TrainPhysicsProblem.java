@@ -1,5 +1,4 @@
 import java.io.File;
-
 import org.deeplearning4j.eval.Evaluation;
 import org.deeplearning4j.models.embeddings.loader.WordVectorSerializer;
 import org.deeplearning4j.models.embeddings.wordvectors.WordVectors;
@@ -18,7 +17,6 @@ import org.deeplearning4j.text.tokenization.tokenizerfactory.DefaultTokenizerFac
 import org.deeplearning4j.text.tokenization.tokenizerfactory.TokenizerFactory;
 import org.deeplearning4j.util.ModelSerializer;
 import org.nd4j.linalg.activations.Activation;
-import org.nd4j.linalg.dataset.api.iterator.DataSetIterator;
 import org.nd4j.linalg.lossfunctions.LossFunctions;
 
 public class TrainPhysicsProblem {
@@ -26,7 +24,6 @@ public class TrainPhysicsProblem {
     public static String DATA_PATH = "";
     public static String WORD_VECTORS_PATH = "";
     public static WordVectors wordVectors;
-    private static TokenizerFactory tokenizerFactory;
 
     public static void main(String[] args) throws Exception {
         
