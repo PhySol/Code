@@ -36,9 +36,9 @@ class ParameterHandling {
 			if(phy_cat[i] == 1)
 				System.out.println("	-VOLTAGE");
 			else if(phy_cat[i] == 2)
-				System.out.println("	-RESISTANCE");
-			else if(phy_cat[i] == 3)
 				System.out.println("	-CURRENT");
+			else if(phy_cat[i] == 3)
+				System.out.println("	-RESISTANCE");
 		}
 		
 	}
