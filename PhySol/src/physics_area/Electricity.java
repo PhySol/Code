@@ -1,8 +1,11 @@
 package physics_area;
 
+import java.util.ArrayList;
+
 public class Electricity {
 	
-
+	public static String[] derivation;
+	
 //Voltage
 
 	/**
@@ -11,9 +14,15 @@ public class Electricity {
 	 * @param g_resistance - Resistance Variable
 	 * @return double
 	 */
-	public static double elec_voltage_formula_cr(double g_current, double g_resistance){
-			
-			return g_current * g_resistance;
+	public static String[] elec_voltage_formula_cr(double g_current, double g_resistance, String g_current_unit, String g_resistance_unit){
+			double final_ans =  g_current * g_resistance;
+			derivation = new String[5];
+			derivation[0] = "\tVoltage = Current * Resistance";
+			derivation[1] = "\tVoltage = " + g_current + " " + g_current_unit + " * "  + g_resistance + " " + g_resistance_unit;
+			derivation[2] = "\tVoltage = " + Double.toString(final_ans);
+			derivation[3] = "\n";
+			derivation[4] = "Final Answer: " + Double.toString(final_ans) + " volts";
+			return derivation;
 	}
 	 
 	/**
@@ -31,7 +40,7 @@ public class Electricity {
 	 * Formula for Voltage using Power and Resistance
 	 * @param g_power
 	 * @param g_resistance
-	 * @return
+	 * @return+
 	 */
 	public static double elec_voltage_formula_pr(double g_power, double g_resistance){
 
@@ -59,7 +68,7 @@ public class Electricity {
 	 */
 	public static double elec_resistance_formula_pc(double g_power, double g_current){
 		
-			return (g_power / (Math.pow(g_current, 2))) + (g_power % (Math.pow(g_current, 2)));
+			return (g_power / (Math. pow(g_current, 2))) + (g_power % (Math.pow(g_current, 2)));
 	}
 	
 	/**
@@ -140,6 +149,7 @@ public class Electricity {
 	 * @return double
 	 */
 	public static double elec_power_formula_cr(double g_current, double g_resistance){
+		
 			return (Math.pow(g_current, 2)) * g_resistance;
 	}
 	
