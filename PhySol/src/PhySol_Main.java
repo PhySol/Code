@@ -19,6 +19,8 @@ import java.util.Scanner;
 public class PhySol_Main extends Given_Extractor_Temp{
 	
 	public static String inputProblem = null;
+	public static ArrayList<String> givenEntailment = new ArrayList<String>();
+	public static String requiredEntailment;
     public static String requiredKeyword;
     private static String WORD_VECTORS_PATH = "";
     private static WordVectors wordVectors;
@@ -72,10 +74,13 @@ public class PhySol_Main extends Given_Extractor_Temp{
             brCategories.close();
             Given();
             for(int x=0;x<givenValue.size();x++) {
-            	System.out.println("GIVEN:  "+givenVariable+":"+givenValue.get(x)+":"+givenUnit.get(x));
+            	givenEntailment.add(givenVariable+":"+givenValue.get(x)+":"+givenUnit.get(x));
+            	System.out.println("GIVEN:  "+givenEntailment.get(x));
             }
             requiredKeyword = labels.get(pos).split(",")[1];
-            System.out.println("REQUIRED:  "+givenVariable+":"+requiredKeyword);
+            requiredEntailment = givenVariable+":"+requiredKeyword;
+            System.out.println("REQUIRED:  "+requiredEntailment);
+            
         } catch (Exception e) {
             System.out.println("File Exception : " + e.getMessage());
         }
