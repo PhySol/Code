@@ -7,7 +7,7 @@ public class Newton {
 
 	//Force
 
-	public static String[] newton_force_formul_ma(double g_mass, double g_acceleration, String g_mass_unit, String g_acceleration_unit){
+	public static String[] newton_force_formula_ma(double g_mass, double g_acceleration, String g_mass_unit, String g_acceleration_unit){
 			final_ans = g_mass * g_acceleration;
 			derivation = new String[5];
 			derivation[0] = "\tForce = Mass * Acceleration";
@@ -41,6 +41,7 @@ public class Newton {
 			derivation[4] = "Final Answer = " + final_ans + " ms2";
 
 			return derivation;
+			
 	}
 }
 
