@@ -75,11 +75,13 @@ public class PhySol_Main extends Given_Extractor_Temp{
             Given();
             for(int x=0;x<givenValue.size();x++) {
             	givenEntailment.add(givenVariable+":"+givenValue.get(x)+":"+givenUnit.get(x));
-            	System.out.println("GIVEN:  "+givenEntailment.get(x));
+            	//System.out.println("GIVEN:  "+givenEntailment.get(x));
             }
             requiredKeyword = labels.get(pos).split(",")[1];
             requiredEntailment = givenVariable+":"+requiredKeyword;
-            System.out.println("REQUIRED:  "+requiredEntailment);
+            //System.out.println("REQUIRED:  "+requiredEntailment);
+            String[] givenParameter = ParameterHandling.ArrayListConversion(givenEntailment);
+            ParameterHandling.formula_engine(givenParameter, requiredEntailment);
             
         } catch (Exception e) {
             System.out.println("File Exception : " + e.getMessage());
