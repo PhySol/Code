@@ -1,8 +1,7 @@
 import java.util.*;
-import java.util.stream.IntStream;
-
 import physics_area.Electricity;
 import physics_area.Kinematics;
+import physics_area.Newton;
 
 
 class ParameterHandling {
@@ -14,8 +13,11 @@ class ParameterHandling {
 			3 : resistance
 			4 : power
 			5 : speed
-			6 : acceleration
-			7 : velocity
+			6 : time
+			7 : distance
+			8 : force
+			9 : mass
+		   10 : acceleration
 
 	
 	*/
@@ -25,9 +27,10 @@ class ParameterHandling {
 	public static ArrayList<String> parametersNeeded = new ArrayList<String>();
 	public static String[] givenParameter;
 	public static int[] given_phy_area;
+	public static double[] multiplier;
 
 	
-	public static int[] mapGivenParameter(String[] givenParameters){
+	public static int[] mapGivenParameter(String[] givenParameters, int opt){
 //		for(int i = 0; i<=Units.units.length; i++){
 //			for(int j = 0; j<Units.units[i].length; j++){
 //				System.out.print(Units.units[i][j] + " ");
@@ -36,34 +39,29 @@ class ParameterHandling {
 
 		int gPLength = givenParameters.length;
 		int[] phy_area = new int[gPLength];
+		int tmp_j;
+		double[] tmp_multiplier = new double[gPLength];
 		for(int i = 0; i<gPLength ; i++){
 			String unit_spec = (givenParameters[i].split(":"))[2];
-			
-
-			phy_area[i] = checkUnitMap(unit_spec);
-			// if(phy_cat[i] == 1)
-			// 	System.out.println("	-VOLTAGE");
-			// else if(phy_cat[i] == 2)
-			// 	System.out.println("	-CURRENT");
-			// else if(phy_cat[i] == 3)
-			// 	System.out.println("	-RESISTANCE");
-			// else if(phy_cat[i] == 4)
-			// 	System.out.println("	-SPEED");
-			// else if(phy_cat[i] == 5)
-			// 	System.out.println("	-ACCELRATION");
+			phy_area[i] = checkUnitMap(unit_spec, 0);
+			tmp_j = checkUnitMap(unit_spec, 1);
+			tmp_multiplier[i] = Double.parseDouble(Units.units[phy_area[i]-1][tmp_j].split(":")[1]);
 		}
+		multiplier = tmp_multiplier;
 		
 		return phy_area;
-		
 	}
 	
 	// Check unit of extracted parameters from Unit Dictionary
-	public static int checkUnitMap(String unit_spec){
-
+	public static int checkUnitMap(String unit_spec, int opt){
+		
 		for(int i = 0; i<Units.units.length ; i++){ //per row
 			for(int j = 0; j<(Units.units[i].length) ; j++){ // per column
-				if(Units.units[i][j].equalsIgnoreCase(unit_spec)){
-					return i + 1;
+				if(Units.units[i][j].split(":")[0].equalsIgnoreCase(unit_spec)){
+					if(opt == 0)
+						return i + 1;
+					else
+						return j;
 				}
 			}
 		}
@@ -121,6 +119,11 @@ class ParameterHandling {
 		return gParam.split(":")[2];
 	}
 	
+	public static double extractMultiplier(int value){
+		
+		return multiplier[findIndex(given_phy_area, value)];
+	}
+	
 	
 	
 	public static int findIndex(int[] array, int value) {
@@ -165,7 +168,7 @@ class ParameterHandling {
 	public static void formula_engine(String[] givenParameter2, String requiredParameter){
 		
 		givenParameter = givenParameter2;
-		
+	
 		System.out.println("Given : ");
 		System.out.println();
 		for(String param : givenParameter){
@@ -182,7 +185,7 @@ class ParameterHandling {
 		
 		String[] derivation;
 		
-		given_phy_area = mapGivenParameter(givenParameter);
+		given_phy_area = mapGivenParameter(givenParameter, 0);
 		
 		int requiredCode = mapRequiredParameter(requiredParameter);
 		
@@ -191,17 +194,17 @@ class ParameterHandling {
 		if(requiredCode == 1){			// Voltage
 				// Current and Resistance
 				if(exists(2) && exists(3)){
-						derivation = Electricity.elec_voltage_formula_cr(extractNumeric(2), extractNumeric(3), extractUnit(2), extractUnit(3));
+						derivation = Electricity.elec_voltage_formula_cr(extractNumeric(2), extractNumeric(3), extractUnit(2), extractUnit(3), extractMultiplier(2), extractMultiplier(3));
 						display(derivation);
 				}
 				// Power and Current
 				else if(exists(4) && exists(2)){
-						derivation = Electricity.elec_voltage_formula_pc(extractNumeric(4), extractNumeric(2), extractUnit(4), extractUnit(2));
+						derivation = Electricity.elec_voltage_formula_pc(extractNumeric(4), extractNumeric(2), extractUnit(4), extractUnit(2), extractMultiplier(4), extractMultiplier(2));
 						display(derivation);
 				}
 				// Power and Resistance
 				else if(exists(4) && exists(3)){
-						derivation = Electricity.elec_voltage_formula_pr(extractNumeric(4), extractNumeric(3), extractUnit(4), extractUnit(3));
+						derivation = Electricity.elec_voltage_formula_pr(extractNumeric(4), extractNumeric(3), extractUnit(4), extractUnit(3), extractMultiplier(4), extractMultiplier(3));
 						display(derivation);
 				}	
 		}
@@ -209,17 +212,17 @@ class ParameterHandling {
 		else if(requiredCode == 2){		// Current
 				// Voltage and Resistance
 				if(exists(1) && exists(3)){
-						derivation = Electricity.elec_current_formula_vr(extractNumeric(1), extractNumeric(3), extractUnit(1), extractUnit(3));
+						derivation = Electricity.elec_current_formula_vr(extractNumeric(1), extractNumeric(3), extractUnit(1), extractUnit(3), extractMultiplier(1), extractMultiplier(3));
 						display(derivation);
 				}
 				// Power and Resistance
 				else if(exists(4) && exists(3)){
-						derivation = Electricity.elec_current_formula_pr(extractNumeric(4), extractNumeric(3), extractUnit(4), extractUnit(3));
+						derivation = Electricity.elec_current_formula_pr(extractNumeric(4), extractNumeric(3), extractUnit(4), extractUnit(3), extractMultiplier(4), extractMultiplier(3));
 						display(derivation);
 				}
 				// Power and Voltage
 				else if(exists(4) && exists(1)){
-						derivation = Electricity.elec_current_formula_pv(extractNumeric(4), extractNumeric(1), extractUnit(4), extractUnit(1));
+						derivation = Electricity.elec_current_formula_pv(extractNumeric(4), extractNumeric(1), extractUnit(4), extractUnit(1), extractMultiplier(4), extractMultiplier(1));
 						display(derivation);
 				}
 		}
@@ -227,17 +230,17 @@ class ParameterHandling {
 		else if(requiredCode == 3){		//Resistance
 				// Voltage and Current
 				if(exists(1) && exists(2)){
-						derivation = Electricity.elec_resistance_formula_vc(extractNumeric(1), extractNumeric(2), extractUnit(1), extractUnit(2));
+						derivation = Electricity.elec_resistance_formula_vc(extractNumeric(1), extractNumeric(2), extractUnit(1), extractUnit(2), extractMultiplier(1), extractMultiplier(2));
 						display(derivation);
 				}
 				// Power and Current
 				else if(exists(4) && exists(2)){
-						derivation = Electricity.elec_resistance_formula_pc(extractNumeric(4), extractNumeric(2), extractUnit(4), extractUnit(2));
+						derivation = Electricity.elec_resistance_formula_pc(extractNumeric(4), extractNumeric(2), extractUnit(4), extractUnit(2), extractMultiplier(4), extractMultiplier(2));
 						display(derivation);
 				}
 				// Voltage and Power
 				else if(exists(1) && exists(4)){
-						derivation = Electricity.elec_resistance_formula_vp(extractNumeric(1), extractNumeric(4), extractUnit(1), extractUnit(4));
+						derivation = Electricity.elec_resistance_formula_vp(extractNumeric(1), extractNumeric(4), extractUnit(1), extractUnit(4), extractMultiplier(1), extractMultiplier(4));
 						display(derivation);
 				}
 		}
@@ -245,46 +248,49 @@ class ParameterHandling {
 		else if(requiredCode == 4){		//Power
 				// Current and Voltage
 				if(exists(2) && exists(1)){
-						derivation = Electricity.elec_power_formula_cv(extractNumeric(2), extractNumeric(1), extractUnit(2), extractUnit(1));
+						derivation = Electricity.elec_power_formula_cv(extractNumeric(2), extractNumeric(1), extractUnit(2), extractUnit(1), extractMultiplier(2), extractMultiplier(1));
 						display(derivation);
 				}
 				// Voltage and Resistance
 				else if(exists(1) && exists(3)){
-						derivation = Electricity.elec_power_formula_vr(extractNumeric(1), extractNumeric(3), extractUnit(1), extractUnit(3));
+						derivation = Electricity.elec_power_formula_vr(extractNumeric(1), extractNumeric(3), extractUnit(1), extractUnit(3), extractMultiplier(1), extractMultiplier(3));
 						display(derivation);
 				}
 				// Current and Resistance
 				else if(exists(2) && exists(3)){
-						derivation = Electricity.elec_power_formula_cr(extractNumeric(2), extractNumeric(3), extractUnit(2), extractUnit(3));
+						derivation = Electricity.elec_power_formula_cr(extractNumeric(2), extractNumeric(3), extractUnit(2), extractUnit(3), extractMultiplier(2), extractMultiplier(3));
 						display(derivation);
 				}
 		}
 		
 		else if(requiredCode == 5){ //Speed
-				//derivation = Kinematics.kinematics_speed_formula_dt(extractNumeric(7,givenParameter, given_phy_area), g_time, g_distance_unit, g_time_unit)
+				derivation = Kinematics.kinematics_speed_formula_dt(extractNumeric(7), extractNumeric(6), extractUnit(7), extractUnit(6), extractMultiplier(7), extractMultiplier(6));
+				display(derivation);
 		}
 				
 		else if(requiredCode == 6){ //Time
-					
+				derivation = Kinematics.kinematics_time_formula_ds(extractNumeric(7), extractNumeric(5), extractUnit(7), extractUnit(5), extractMultiplier(7), extractMultiplier(7));
+				display(derivation);
 		}
 				
 		else if(requiredCode == 7){ //Distance
-			
+				derivation = Kinematics.kinematics_distance_formula_st(extractNumeric(5), extractNumeric(6), extractUnit(5), extractUnit(6), extractMultiplier(5), extractMultiplier(6));
+				display(derivation);
 		}
 		
 		else if(requiredCode == 8){ //Force
-			
+				derivation = Newton.newton_force_formula_ma(extractNumeric(9), extractNumeric(10), extractUnit(9), extractUnit(10), extractMultiplier(9), extractMultiplier(10));
+				display(derivation);
 		}
 				
 		else if(requiredCode == 9){ //Mass
-			
+				derivation = Newton.newton_mass_formula_fa(extractNumeric(8), extractNumeric(10), extractUnit(8), extractUnit(10), extractMultiplier(8), extractMultiplier(10));
+				display(derivation);
 		}
 				
 		else if(requiredCode == 10){ //Acceleration
-			
+				derivation = Newton.newton_acceleration_formula_fm(extractNumeric(8), extractNumeric(9), extractUnit(8), extractUnit(9), extractMultiplier(8), extractMultiplier(9));
+				display(derivation);
 		}
 	}
-	
-	
-
 }
