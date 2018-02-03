@@ -1,4 +1,7 @@
 import java.util.*;
+
+import javax.swing.JOptionPane;
+
 import physics_area.Electricity;
 import physics_area.Kinematics;
 import physics_area.Newton;
@@ -188,22 +191,25 @@ class ParameterHandling {
 		given_phy_area = mapGivenParameter(givenParameter, 0);
 		
 		int requiredCode = mapRequiredParameter(requiredParameter);
-		
+		boolean flag = false;
 		
 
 		if(requiredCode == 1){			// Voltage
 				// Current and Resistance
 				if(exists(2) && exists(3)){
+						flag = true;
 						derivation = Electricity.elec_voltage_formula_cr(extractNumeric(2), extractNumeric(3), extractUnit(2), extractUnit(3), extractMultiplier(2), extractMultiplier(3));
 						display(derivation);
 				}
 				// Power and Current
 				else if(exists(4) && exists(2)){
+						flag = true;
 						derivation = Electricity.elec_voltage_formula_pc(extractNumeric(4), extractNumeric(2), extractUnit(4), extractUnit(2), extractMultiplier(4), extractMultiplier(2));
 						display(derivation);
 				}
 				// Power and Resistance
 				else if(exists(4) && exists(3)){
+						flag = true;
 						derivation = Electricity.elec_voltage_formula_pr(extractNumeric(4), extractNumeric(3), extractUnit(4), extractUnit(3), extractMultiplier(4), extractMultiplier(3));
 						display(derivation);
 				}	
@@ -212,16 +218,19 @@ class ParameterHandling {
 		else if(requiredCode == 2){		// Current
 				// Voltage and Resistance
 				if(exists(1) && exists(3)){
+						flag = true;
 						derivation = Electricity.elec_current_formula_vr(extractNumeric(1), extractNumeric(3), extractUnit(1), extractUnit(3), extractMultiplier(1), extractMultiplier(3));
 						display(derivation);
 				}
 				// Power and Resistance
 				else if(exists(4) && exists(3)){
+						flag = true;
 						derivation = Electricity.elec_current_formula_pr(extractNumeric(4), extractNumeric(3), extractUnit(4), extractUnit(3), extractMultiplier(4), extractMultiplier(3));
 						display(derivation);
 				}
 				// Power and Voltage
 				else if(exists(4) && exists(1)){
+						flag = true;
 						derivation = Electricity.elec_current_formula_pv(extractNumeric(4), extractNumeric(1), extractUnit(4), extractUnit(1), extractMultiplier(4), extractMultiplier(1));
 						display(derivation);
 				}
@@ -230,16 +239,19 @@ class ParameterHandling {
 		else if(requiredCode == 3){		//Resistance
 				// Voltage and Current
 				if(exists(1) && exists(2)){
+						flag = true;
 						derivation = Electricity.elec_resistance_formula_vc(extractNumeric(1), extractNumeric(2), extractUnit(1), extractUnit(2), extractMultiplier(1), extractMultiplier(2));
 						display(derivation);
 				}
 				// Power and Current
 				else if(exists(4) && exists(2)){
+						flag = true;
 						derivation = Electricity.elec_resistance_formula_pc(extractNumeric(4), extractNumeric(2), extractUnit(4), extractUnit(2), extractMultiplier(4), extractMultiplier(2));
 						display(derivation);
 				}
 				// Voltage and Power
 				else if(exists(1) && exists(4)){
+						flag = true;
 						derivation = Electricity.elec_resistance_formula_vp(extractNumeric(1), extractNumeric(4), extractUnit(1), extractUnit(4), extractMultiplier(1), extractMultiplier(4));
 						display(derivation);
 				}
@@ -248,49 +260,68 @@ class ParameterHandling {
 		else if(requiredCode == 4){		//Power
 				// Current and Voltage
 				if(exists(2) && exists(1)){
+						flag = true;
 						derivation = Electricity.elec_power_formula_cv(extractNumeric(2), extractNumeric(1), extractUnit(2), extractUnit(1), extractMultiplier(2), extractMultiplier(1));
 						display(derivation);
 				}
 				// Voltage and Resistance
 				else if(exists(1) && exists(3)){
+						flag = true;
 						derivation = Electricity.elec_power_formula_vr(extractNumeric(1), extractNumeric(3), extractUnit(1), extractUnit(3), extractMultiplier(1), extractMultiplier(3));
 						display(derivation);
 				}
 				// Current and Resistance
 				else if(exists(2) && exists(3)){
+						flag = true;
 						derivation = Electricity.elec_power_formula_cr(extractNumeric(2), extractNumeric(3), extractUnit(2), extractUnit(3), extractMultiplier(2), extractMultiplier(3));
 						display(derivation);
 				}
 		}
 		
 		else if(requiredCode == 5){ //Speed
+			if(exists(7) && exists(6)){
 				derivation = Kinematics.kinematics_speed_formula_dt(extractNumeric(7), extractNumeric(6), extractUnit(7), extractUnit(6), extractMultiplier(7), extractMultiplier(6));
 				display(derivation);
+			}
 		}
 				
 		else if(requiredCode == 6){ //Time
+			if(exists(7) && exists(5)){
 				derivation = Kinematics.kinematics_time_formula_ds(extractNumeric(7), extractNumeric(5), extractUnit(7), extractUnit(5), extractMultiplier(7), extractMultiplier(7));
 				display(derivation);
+			}
 		}
 				
 		else if(requiredCode == 7){ //Distance
+			if(exists(5) && exists(6)){
 				derivation = Kinematics.kinematics_distance_formula_st(extractNumeric(5), extractNumeric(6), extractUnit(5), extractUnit(6), extractMultiplier(5), extractMultiplier(6));
 				display(derivation);
+			}
 		}
 		
 		else if(requiredCode == 8){ //Force
+			if(exists(9) && exists(10)){
 				derivation = Newton.newton_force_formula_ma(extractNumeric(9), extractNumeric(10), extractUnit(9), extractUnit(10), extractMultiplier(9), extractMultiplier(10));
 				display(derivation);
+			}
 		}
 				
 		else if(requiredCode == 9){ //Mass
+			if(exists(8) && exists(10)){
 				derivation = Newton.newton_mass_formula_fa(extractNumeric(8), extractNumeric(10), extractUnit(8), extractUnit(10), extractMultiplier(8), extractMultiplier(10));
 				display(derivation);
+			}
 		}
 				
 		else if(requiredCode == 10){ //Acceleration
+			if(exists(8) && exists(9)){
 				derivation = Newton.newton_acceleration_formula_fm(extractNumeric(8), extractNumeric(9), extractUnit(8), extractUnit(9), extractMultiplier(8), extractMultiplier(9));
 				display(derivation);
+			}
+		}
+		
+		if(!flag){
+			JOptionPane.showMessageDialog(null, "Not Enough Given Parameters", "Equation not Found", JOptionPane.ERROR_MESSAGE);
 		}
 	}
 }
