@@ -30,6 +30,7 @@ class ParameterHandling {
 	public static ArrayList<String> parametersNeeded = new ArrayList<String>();
 	public static String[] givenParameter;
 	public static int[] given_phy_area;
+	public static String[] derivation;
 	public static double[] multiplier;
 
 	
@@ -186,7 +187,6 @@ class ParameterHandling {
 		System.out.println();
 		
 		
-		String[] derivation;
 		
 		given_phy_area = mapGivenParameter(givenParameter, 0);
 		
@@ -320,8 +320,8 @@ class ParameterHandling {
 			}
 		}
 		
-		if(!flag){
-			JOptionPane.showMessageDialog(null, "Not Enough Given Parameters", "Equation not Found", JOptionPane.ERROR_MESSAGE);
-		}
+//		if(!flag){
+//			JOptionPane.showMessageDialog(null, "Not Enough Given Parameters", "Equation not Found", JOptionPane.ERROR_MESSAGE);
+//		}
 	}
 }

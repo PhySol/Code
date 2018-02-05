@@ -19,7 +19,7 @@ public class Required_WordEmbeddings {
         t.setTokenPreProcessor(new CommonPreprocessor());
 
         Word2Vec vec = new Word2Vec.Builder()
-        		.minWordFrequency(2)
+        		.minWordFrequency(1)
                 .iterations(10)
                 .layerSize(100)
                 .seed(42)

@@ -29,7 +29,7 @@ public class PhySol_Main extends Given_Extractor_Temp{
     private static MultiLayerNetwork net;
 	static Scanner sc = new Scanner(System.in);
 
-    public static void main(String args[]){
+    public static void Initialize_RNN(){
         try {
             userDirectory = "PhySolData/";
             WORD_VECTORS_PATH = "PhySolData/PhysicsWordVector.physol";
@@ -40,14 +40,11 @@ public class PhySol_Main extends Given_Extractor_Temp{
         } catch (Exception e) {
         	System.out.println("RNN Error: "+e.getMessage());
         }
-        InitializeInput();
     }//public static void main(String args[]) {
     
     
     //Given and Required Extractor
     public static void InitializeInput() { 
-    	System.out.print("\nPhysics Problem: ");
-    	inputProblem = sc.nextLine();
         DataSet testNews = prepareTestData(inputProblem);
         INDArray fet = testNews.getFeatureMatrix();
         INDArray predicted = net.output(fet, false);

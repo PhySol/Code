@@ -32,7 +32,7 @@ public class Required_TrainPhysicsProblem {
         WORD_VECTORS_PATH = "PhySolData/PhysicsWordVector.physol";
 
         int batchSize = 50;     //Number of examples in each minibatch
-        int nEpochs = 55;        //Number of epochs (full passes of training data) to train on
+        int nEpochs = 50;        //Number of epochs (full passes of training data) to train on
         int truncateReviewsToLength = 300;  //Truncate reviews with length (# words) greater than this
 
         wordVectors = WordVectorSerializer.readWord2VecModel(new File(WORD_VECTORS_PATH));

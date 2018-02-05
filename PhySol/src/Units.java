@@ -21,4 +21,4 @@ class Units{
 	public static String[][] units = {voltage, current, resistance, power, speed, time, distance, force, mass, acceleration};
 
 	
-} 
+} 	

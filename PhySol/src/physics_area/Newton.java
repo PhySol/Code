@@ -15,7 +15,7 @@ public class Newton {
 			derivation[2] = "\tForce = " + (g_mass * mass_multi) + " kg * "+ (g_acceleration * acceleration_multi) + " mps2";
 			derivation[3] = "\tForce = " + final_ans ;
 			derivation[4] = "\n";
-			derivation[5] = "Final Answer : " + final_ans + " N";
+			derivation[5] = "Final Answer : " + final_ans + " Newton/s";
 			
 			return derivation;
 	}
@@ -28,7 +28,7 @@ public class Newton {
 			derivation[2] = "\tMass = " + (g_force * force_multi) + " N / " + (g_acceleration * acceleration_multi) + " mps2";
 			derivation[3] = "\tMass = " + final_ans;
 			derivation[4] = "\n";
-			derivation[5] = "Final Answer : " + final_ans + " kg";
+			derivation[5] = "Final Answer : " + final_ans + " kilogram/s";
 
 			return derivation;
 	}
@@ -41,7 +41,7 @@ public class Newton {
 			derivation[2] = "\tAcceleration = " + (g_force * force_multi) + " N / " + (g_mass * mass_multi) + " kg";
 			derivation[3] = "\tAcceleration = " + final_ans;
 			derivation[4] = "\n";
-			derivation[5] = "Final Answer = " + final_ans + " ms2";
+			derivation[5] = "Final Answer = " + final_ans + " meter/s per second\\u00B2";
 
 			return derivation;
 			

@@ -31,7 +31,7 @@ public class Kinematics {
 			derivation[2] = "\tSpeed = " + (g_distance * distance_multi) + " meters / " + (g_time * time_multi) + " seconds";
 			derivation[3] = "\tSpeed = " + final_ans;
 			derivation[4] = "\n";
-			derivation[5] = "Final Answer = " + final_ans + " mps";
+			derivation[5] = "Final Answer = " + final_ans + " meter/s per second";
 
 			return derivation;
 	}
@@ -43,7 +43,7 @@ public class Kinematics {
 			derivation = new String[6];
 			derivation[0] = "\tTime = Distance / Speed";
 			derivation[1] = "\tTime = " + g_distance + " " + g_distance_unit + " / " + g_speed + " " + g_speed_unit;
-			derivation[2] = "\tTime = " + (g_distance * distance_multi) + " meters / " + (g_speed * speed_multi) + " kmph";
+			derivation[2] = "\tTime = " + (g_distance * distance_multi) + " meters / " + (g_speed * speed_multi) + " mps";
 			derivation[3] = "\tTime = " + final_ans;
 			derivation[4] = "\n";
 			derivation[5] = "Final Answer = " + final_ans + " seconds";

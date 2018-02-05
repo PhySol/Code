@@ -5,4 +5,6 @@
 4,acceleration
 5,distance
 6,time
-7,velocity
+7,force
+8,power
+9,mass
